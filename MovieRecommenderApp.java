@@ -38,11 +38,10 @@ public class MovieRecommenderApp {
 
    // setup comparator for binary search
    static Comparator<Movie> c = new Comparator<Movie>() {
-      public int compare(Movie m1, Movie m2)
-      {
-          return m1.getTitle().compareTo(m2.getTitle());
+      public int compare(Movie m1, Movie m2) {
+         return m1.getTitle().compareTo(m2.getTitle());
       }
-  };
+   };
 
    // binary search of movie list of type Movie by provided movie title in string
    public static int binarySearch(ArrayList<Movie> movieList, String movieTitle) {
@@ -50,7 +49,7 @@ public class MovieRecommenderApp {
       return index;
    }
 
-   //this is main entry point
+   // this is main entry point
    public static void main(String[] args) {
 
       // this code is required to enable JOptionPanel to run
@@ -195,9 +194,9 @@ public class MovieRecommenderApp {
       Print("");
       if (index >= 0) {
          Print("Movie found at " + index + " : " + movieList.get(index).getTitle());
-     } else {
+      } else {
          Print("Movie not found");
-     }
+      }
 
       // show JOptionPane from review class
       Review review = new Review();

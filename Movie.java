@@ -2,11 +2,12 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public class Movie implements Comparable<Movie>, Comparator<Movie>{
+public class Movie implements Comparable<Movie>, Comparator<Movie> {
 
     // this list contain string of genre allowed to create movie genre. If you want
     // to add more just add new genre(string) in the list
-    private static final List<String> ALLOWED_GENRES = Arrays.asList("action", "romance", "fiction", "horror", "family");
+    private static final List<String> ALLOWED_GENRES = Arrays.asList("action", "romance", "fiction", "horror",
+            "family");
     private String movieGenre;
     private String movieTitle;
     private int movieRating;
@@ -45,7 +46,7 @@ public class Movie implements Comparable<Movie>, Comparator<Movie>{
         return this.year;
     }
 
-    public Movie(String movieTitle){
+    public Movie(String movieTitle) {
         this.movieTitle = movieTitle;
 
     }
