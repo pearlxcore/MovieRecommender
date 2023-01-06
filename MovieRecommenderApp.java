@@ -8,38 +8,52 @@ import javax.swing.SwingUtilities;
 
 public class MovieRecommenderApp {
 
+   // 1. create movie object (this will require a class for movie)
+   // 2. add movie into movieList(ArrayList)
+   // 3. get user input (name, phone number, movie genre)
+   // 4. (before sorting) iterate movieList and filter movie by input genre and
+   // display movie detail
+   // 5. sort movieList using BubbleSort() method
+   // 6. repeat step 4
+   // 7. call showPopUP() method from review class
+
+   // this list contain string of genre allowed to create movie genre. If you want
+   // to add more just add new genre(string) in the list
    private static final List<String> ALLOWED_GENRES = Arrays.asList("action", "romance", "fiction", "horror", "family");
 
-   // sorting
+   // sorting method for movieList
    public static List<Movie> BubbleSort(List<Movie> movieList) {
       for (int i = 0; i < movieList.size() - 1; i++) {
          for (int j = 0; j < movieList.size() - i - 1; j++) {
-           if (movieList.get(j).getTitle().compareTo(movieList.get(j + 1).getTitle()) > 0) {
-             // Swap movies[j] and movies[j+1]
-             Movie temp = movieList.get(j);
-             movieList.set(j, movieList.get(j + 1));
-             movieList.set(j + 1, temp);
-           }
+            if (movieList.get(j).getTitle().compareTo(movieList.get(j + 1).getTitle()) > 0) {
+               // Swap movies[j] and movies[j+1]
+               Movie temp = movieList.get(j);
+               movieList.set(j, movieList.get(j + 1));
+               movieList.set(j + 1, temp);
+            }
          }
-       }
+      }
       return movieList;
    }
 
    public static void main(String[] args) {
 
+      // this code is required to enable JOptionPanel to run
       JFrame f = new JFrame();
       f.setVisible(true);
       SwingUtilities.invokeLater(() -> f.setVisible(false));
+
       Scanner input = new Scanner(System.in);
       ArrayList moviesArrayList = new ArrayList();
       String name, phoneNum;
       String selectedCategory, MovieTitle;
       double Rating;
-
       ArrayList<Movie> movieList = new ArrayList<>();
 
       // create movie and add into movie list
-
+      // when creating the movie object, it will call the constructor method which
+      // taking required parameter of the movie
+      
       // action movies
       Movie Skyscrapper = new Movie("Skyscrapper", "action", 2000, 0, "movieDescription", 20.00);
       Movie Venom = new Movie("Venom", "action", 2000, 0, "movieDescription", 20.00);
@@ -93,7 +107,8 @@ public class MovieRecommenderApp {
       Movie CorpseBride = new Movie("Corpse Bride", "family", 2000, 0, "movieDescription", 20.00);
       Movie Cinderella = new Movie("Cinderella", "family", 2000, 0, "movieDescription", 20.00);
       Movie SonicTheHedgehog = new Movie("Sonic The Hedgehog", "family", 2000, 0, "movieDescription", 20.00);
-      Movie HowToTrainYourDragon = new Movie("How To Train Your Dragon: The Hidden World", "family", 2000, 0, "movieDescription", 20.00);
+      Movie HowToTrainYourDragon = new Movie("How To Train Your Dragon: The Hidden World", "family", 2000, 0,
+            "movieDescription", 20.00);
       // add family movies created to movie list
       movieList.add(TheBossBaby);
       movieList.add(CorpseBride);
@@ -101,6 +116,7 @@ public class MovieRecommenderApp {
       movieList.add(SonicTheHedgehog);
       movieList.add(HowToTrainYourDragon);
 
+      // get user input (name, phone number and genre)
       Print("--------WELCOME TO MOVIE RECOMMENDER--------");
       Print("Please Enter your name: ");
       name = input.nextLine();
@@ -116,17 +132,23 @@ public class MovieRecommenderApp {
       Print("\t\t[5] FAMILY MOVIE");
       Print("\t\t-----------END-------------");
 
-      // get category from user
       Print("Enter Movie Category (Action/Romance/Fiction/Horror/Family): ");
       selectedCategory = input.nextLine().toLowerCase();
 
+      // this code is to filter the valid genre input by user. if the genre is not in
+      // the ALLOWED_GENRE, then throw an error IllegalArgumentException
       if (!ALLOWED_GENRES.contains(selectedCategory)) {
          throw new IllegalArgumentException("Invalid genre: " + selectedCategory);
       }
 
+      // input genre is valid, proceed
       Print("**Before sort**");
       Print("");
+
+      // now iterate movies inside movieList and filter movie by input genre and
+      // display the movie detail
       for (Movie movie : movieList) {
+         // filter genre
          if (movie.getGenre().equals(selectedCategory)) {
             Print(movie.getMovieDetail());
             Print("");
@@ -135,15 +157,21 @@ public class MovieRecommenderApp {
 
       Print("**After sort**");
       Print("");
+
+      // sort movieList
       BubbleSort(movieList);
+
+      // reiterate movies inside movieList and filter movie by input genre and display
+      // the movie detail
       for (Movie movie : movieList) {
+         // filter
          if (movie.getGenre().equals(selectedCategory)) {
             Print(movie.getMovieDetail());
             Print("");
          }
       }
 
-
+      // show JOptionPane from review class
       Review review = new Review();
       review.showPopUp();
 
