@@ -1,7 +1,8 @@
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
-public class Movie {
+public class Movie implements Comparable<Movie>, Comparator<Movie>{
 
     // this list contain string of genre allowed to create movie genre. If you want
     // to add more just add new genre(string) in the list
@@ -12,6 +13,7 @@ public class Movie {
     private String movieDescription;
     private double moviePrice;
     private int year;
+    private String movieTitle_;
 
     // this method will return movie genre
     public String getGenre() {
@@ -43,6 +45,11 @@ public class Movie {
         return this.year;
     }
 
+    public Movie(String movieTitle){
+        this.movieTitle = movieTitle;
+
+    }
+
     // when creating the movie object, it will call the constructor method which
     // taking required parameter of the movie
     public Movie(String movieTitle, String movieGenre, int year, int movieRating, String movieDescription,
@@ -69,5 +76,17 @@ public class Movie {
         return "Movie title: " + this.movieTitle + "\nMovie genre: " + this.movieGenre + "\nYear: " + this.year
                 + "\nMovie rating: " + this.movieRating + "\nMovie description: " + this.movieDescription
                 + "\nMovie price: " + this.moviePrice;
+    }
+
+    @Override
+    public int compareTo(Movie o) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int compare(Movie o1, Movie o2) {
+        // TODO Auto-generated method stub
+        return 0;
     }
 }

@@ -22,7 +22,7 @@ public class MovieRecommenderApp {
    private static final List<String> ALLOWED_GENRES = Arrays.asList("action", "romance", "fiction", "horror", "family");
 
    // sorting method for movieList
-   public static List<Movie> BubbleSort(List<Movie> movieList) {
+   public static List<Movie> bubbleSort(List<Movie> movieList) {
       for (int i = 0; i < movieList.size() - 1; i++) {
          for (int j = 0; j < movieList.size() - i - 1; j++) {
             if (movieList.get(j).getTitle().compareTo(movieList.get(j + 1).getTitle()) > 0) {
@@ -36,6 +36,21 @@ public class MovieRecommenderApp {
       return movieList;
    }
 
+   // setup comparator for binary search
+   static Comparator<Movie> c = new Comparator<Movie>() {
+      public int compare(Movie m1, Movie m2)
+      {
+          return m1.getTitle().compareTo(m2.getTitle());
+      }
+  };
+
+   // binary search of movie list of type Movie by provided movie title in string
+   public static int binarySearch(ArrayList<Movie> movieList, String movieTitle) {
+      int index = Collections.binarySearch(movieList, new Movie(movieTitle), c);
+      return index;
+   }
+
+   //this is main entry point
    public static void main(String[] args) {
 
       // this code is required to enable JOptionPanel to run
@@ -45,7 +60,7 @@ public class MovieRecommenderApp {
 
       Scanner input = new Scanner(System.in);
       ArrayList moviesArrayList = new ArrayList();
-      String name, phoneNum;
+      String name, phoneNum, movieTitle;
       String selectedCategory, MovieTitle;
       double Rating;
       ArrayList<Movie> movieList = new ArrayList<>();
@@ -53,11 +68,11 @@ public class MovieRecommenderApp {
       // create movie and add into movie list
       // when creating the movie object, it will call the constructor method which
       // taking required parameter of the movie
-      
+
       // action movies
       Movie Skyscrapper = new Movie("Skyscrapper", "action", 2000, 0, "movieDescription", 20.00);
       Movie Venom = new Movie("Venom", "action", 2000, 0, "movieDescription", 20.00);
-      Movie TheHungerGame = new Movie("MovieTitle", "action", 2000, 0, "movieDescription", 20.00);
+      Movie TheHungerGame = new Movie("The Hunger Game", "action", 2000, 0, "movieDescription", 20.00);
       Movie Peninsula = new Movie("Peninsula", "action", 2000, 0, "movieDescription", 20.00);
       Movie TopGunMaverick = new Movie("Top Gun:Maverick", "action", 2000, 0, "movieDescription", 20.00);
       // add action movies created to movie list
@@ -159,7 +174,7 @@ public class MovieRecommenderApp {
       Print("");
 
       // sort movieList
-      BubbleSort(movieList);
+      bubbleSort(movieList);
 
       // reiterate movies inside movieList and filter movie by input genre and display
       // the movie detail
@@ -171,10 +186,24 @@ public class MovieRecommenderApp {
          }
       }
 
+      // search movie using binary search by movie title
+      Print("Enter movie title: ");
+      movieTitle = input.nextLine();
+
+      // binary search
+      int index = binarySearch(movieList, movieTitle);
+      Print("");
+      if (index >= 0) {
+         Print("Movie found at " + index + " : " + movieList.get(index).getTitle());
+     } else {
+         Print("Movie not found");
+     }
+
       // show JOptionPane from review class
       Review review = new Review();
       review.showPopUp();
 
+      Print("");
       Print("End of code");
    }
 
